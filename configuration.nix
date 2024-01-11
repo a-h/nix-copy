@@ -1,8 +1,9 @@
-{ config, pkgs, ... }: {
-  # Enable the OpenSSH server.
+{ pkgs, ... }: {
   services.openssh = {
     enable = true;
-    permitRootLogin = "yes";
+    settings = {
+      PermitRootLogin = "yes";
+    };
   };
   users.users = {
     adrian = {
@@ -12,6 +13,11 @@
       packages = [
         pkgs.vim
       ];
+    };
+  };
+  nix = {
+    settings = {
+      trusted-users = [ "root" "@wheel" ];
     };
   };
   system.stateVersion = "23.11";
