@@ -33,6 +33,10 @@
         iso = nixos-generators.nixosGenerate {
           system = "x86_64-linux";
           modules = [
+            # Pin nixpkgs to the flake input, so that nixpkgs#hello comes from the
+            # flake inputs.nixpkgs.url.
+            ({ ... }: { nix.registry.nixpkgs.flake = nixpkgs; })
+            # Apply the rest of the config.
             ./configuration.nix
           ];
           format = "qcow";

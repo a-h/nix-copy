@@ -67,7 +67,7 @@ virsh domifaddr target | virsh-json | jq -r ".[0].Address"
 ### Copy hello to disk
 
 ```bash
-nix copy --to file://$PWD/hello github:NixOS/nixpkgs/23.11#hello --extra-experimental-features nix-command --extra-experimental-features flakes
+nix copy --to file://$PWD/hello github:NixOS/nixpkgs/23.11#hello
 ```
 
 ### Copy from source to target
@@ -79,7 +79,7 @@ scp -r ./hello adrian@192.168.122.182:/home/adrian/hello
 ### Note the store path
 
 ```bash
-nix path-info github:NixOS/nixpkgs/23.11#hello --extra-experimental-features nix-command --extra-experimental-features flakes
+nix path-info github:NixOS/nixpkgs/23.11#hello
 ```
 
 ### Exit the source SSH session
@@ -87,14 +87,13 @@ nix path-info github:NixOS/nixpkgs/23.11#hello --extra-experimental-features nix
 ### SSH into target machine and import the results of nix copy
 
 ```bash
-nix copy --all --no-check-sigs --from file://$PWD/hello --extra-experimental-features nix-command --extra-experimental-features flakes
+nix copy --all --no-check-sigs --from file://$PWD/hello
 ```
 
 ### run a shell with hello in the target
 
 ```bash
 nix shell "<path from source machine>"
-nix shell "<path from source machine>" --extra-experimental-features nix-command
 hello
 ```
 
