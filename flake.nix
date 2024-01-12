@@ -36,6 +36,8 @@
             # Pin nixpkgs to the flake input, so that nixpkgs#hello comes from the
             # flake inputs.nixpkgs.url.
             ({ ... }: { nix.registry.nixpkgs.flake = nixpkgs; })
+            # Use Nix 2.19 instead of 2.18.1.
+            ({ ... }: { nix.package = nixpkgs.legacyPackages.x86_64-linux.nixVersions.nix_2_19; })
             # Apply the rest of the config.
             ./configuration.nix
           ];
